@@ -38,14 +38,15 @@
 							<div class="login-right-wrap">
 								<h1>Login</h1>
 								<p class="account-subtitle">Access to our dashboard</p>
-								
+								@include('validate.validate')
 								<!-- Form -->
-								<form action="">
+								<form action="{{route('admin.login')}}" method="POST">
+                                    @csrf
 									<div class="form-group">
 										<input name="auth" class="form-control" type="text" placeholder="Email/Username?Phone">
 									</div>
 									<div class="form-group">
-										<input name="password" class="form-control" type="text" placeholder="Password">
+										<input name="password" class="form-control" type="password" placeholder="Password">
 									</div>
 									<div class="form-group">
 										<button class="btn btn-primary btn-block" type="submit">Login</button>
