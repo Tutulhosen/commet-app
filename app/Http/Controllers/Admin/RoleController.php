@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class PermissionController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +17,10 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permission_date= Permission::latest()->get();
+        $role_data= Role::latest()->get();
+        $permission_data= Permission::latest()->get();
         $form_type='add';
-       return view('admin.pages.permission.index', compact('permission_date', 'form_type'));
+        return view('admin.pages.role.index', compact('role_data', 'permission_data', 'form_type'));
     }
 
     /**
@@ -40,14 +42,17 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'      =>'required|unique:permissions'
+            'name'          =>'required|unique:roles',
+            'permission'    =>'required',
+            
         ]);
 
-        Permission::create([
-            'name'          =>$request->name,
-            'slug'          =>Str::slug($request->name),
+        Role::create([
+            'name'      =>$request->name,
+            'slug'      =>Str::slug($request->name),
+            'permission'      =>json_encode($request->permission),
         ]);
-        return back()->with('success', 'successfully add a permission');
+        return back()->with('success', 'successfully add a new role');
     }
 
     /**
@@ -69,10 +74,11 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $edit_id= Permission::findOrFail($id);
-        $permission_date= Permission::latest()->get();
+        $edit_id=Role::findOrFail($id);
+        $role_data= Role::latest()->get();
+        $permission_data= Permission::latest()->get();
         $form_type='edit';
-        return view('admin.pages.permission.index', compact('permission_date', 'edit_id', 'form_type'));
+        return view('admin.pages.role.index', compact('role_data', 'permission_data', 'edit_id', 'form_type'));
     }
 
     /**
@@ -84,15 +90,17 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $this->validate($request, [
-        'name'      =>'required',
-      ]);
-      $update_id= Permission::findOrFail($id);
-      $update_id->update([
-        'name'      =>$request->name,
-        'slug'      => Str::slug($request->name)
-      ]);
-      return redirect()->route('permission.index')->with('success-mid', 'successfully update data');
+        $this->validate($request, [
+            'name'          =>'required',
+            'permission'    =>'required'
+        ]);
+
+        $update_id= Role::findOrFail($id);
+        $update_id->update([
+            'name'      =>$request->name,
+            'permission'    =>json_encode($request->permission)
+        ]);
+        return redirect()->route('role.index')->with('success-mid' , 'successfully update the rolle data');
     }
 
     /**
@@ -103,8 +111,8 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        $delete_id= Permission::findOrFail($id);
+        $delete_id= Role::findOrFail($id);
         $delete_id->delete();
-        return back()->with('success-mid', 'Delete the permission');
+        return back()->with('success', 'Delete a role data');
     }
 }

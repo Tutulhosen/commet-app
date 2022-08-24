@@ -6,6 +6,10 @@
 <p class="alert alert-success"  >{{ Session::get('success') }} <button class="close" data-dismiss="alert" >&times;</button></p>
  @endif
 
+ @if (Session::has('success-mid'))
+ <p class="alert alert-success"  >{{ Session::get('success-mid') }} <button class="close" data-dismiss="alert" >&times;</button></p>
+  @endif
+
  @if (Session::has('warning'))
  <p class="alert alert-warning"  >{{ Session::get('warning') }} <button class="close" data-dismiss="alert" >&times;</button></p>
   @endif

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\admin\PermissionController;
+use App\Http\Controllers\admin\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,6 +48,9 @@ use Illuminate\Support\Facades\Route;
 
     //permission route
     Route::resource('permission', PermissionController::class);
+
+    //role route
+    Route::resource('role', RoleController::class);
 
 
 
