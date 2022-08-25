@@ -48,9 +48,9 @@ class RoleController extends Controller
         ]);
 
         Role::create([
-            'name'      =>$request->name,
-            'slug'      =>Str::slug($request->name),
-            'permission'      =>json_encode($request->permission),
+            'name'              =>$request->name,
+            'slug'              =>Str::slug($request->name),
+            'permission'        =>json_encode($request->permission),
         ]);
         return back()->with('success', 'successfully add a new role');
     }

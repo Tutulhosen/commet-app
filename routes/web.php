@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\Admin\AdminPageController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\RoleController;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +54,9 @@ use Illuminate\Support\Facades\Route;
     //role route
     Route::resource('role', RoleController::class);
 
+    //admin user route
+
+   Route::resource('admin-user', AdminUserController::class);
 
 
  });
