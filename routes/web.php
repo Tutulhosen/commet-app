@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAuthController;
-use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\admin\PermissionController;
@@ -24,17 +23,13 @@ use Illuminate\Support\Facades\Route;
  * admin redirect middleware
  */
 
- Route::group(['middleware'  =>'admin.redirect'], function(){
-    
-    //admin auth route
-    Route::get('admin-login', [AdminAuthController::class, 'ShowLoginPage'])->name('admin.login.page');
-    Route::post('admin-login', [AdminAuthController::class, 'login'])->name('admin.login');
-
-
-
-
-
+ Route::group(['middleware' => 'admin.redirect'], function(){
+     //admin auth route
+     Route::get('admin-login', [AdminAuthController::class, 'ShowLoginPage'])->name('admin.login.page');
+     Route::post('admin-login', [AdminAuthController::class, 'login'])->name('admin.login');
  });
+
+
 
 /**
  * admin middleware route
@@ -57,7 +52,10 @@ use Illuminate\Support\Facades\Route;
     //admin user route
 
    Route::resource('admin-user', AdminUserController::class);
-
+   Route::get('admin-user-status-update/{id}', [AdminUserController::class, 'statusupdate'])->name('admin.user.status.update');
+   Route::get('admin-user-trash/{id}', [AdminUserController::class, 'trash'])->name('admin.user.trash');
+   Route::get('admin-user-trash-page', [AdminUserController::class, 'trashpage'])->name('admin.user.trash.page');
+   Route::get('admin-user-restore/{id}', [AdminUserController::class, 'userrestore'])->name('admin.user.restore');
 
  });
 

@@ -20,7 +20,7 @@ class RoleController extends Controller
         $role_data= Role::latest()->get();
         $permission_data= Permission::latest()->get();
         $form_type='add';
-        return view('admin.pages.role.index', compact('role_data', 'permission_data', 'form_type'));
+        return view('admin.pages.users.role.index', compact('role_data', 'permission_data', 'form_type'));
     }
 
     /**
@@ -78,7 +78,7 @@ class RoleController extends Controller
         $role_data= Role::latest()->get();
         $permission_data= Permission::latest()->get();
         $form_type='edit';
-        return view('admin.pages.role.index', compact('role_data', 'permission_data', 'edit_id', 'form_type'));
+        return view('admin.pages.users.role.index', compact('role_data', 'permission_data', 'edit_id', 'form_type'));
     }
 
     /**

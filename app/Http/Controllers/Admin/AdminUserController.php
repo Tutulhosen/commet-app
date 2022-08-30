@@ -18,9 +18,20 @@ class AdminUserController extends Controller
     public function index()
     {
         $role_data= Role::latest()->get();
-        $admin_user_data= AdminUser::latest()->get();
+        $admin_user_data= AdminUser::latest()->where('trash', 0)->get();
         $form_type= 'add';
-        return view('admin.pages.index', compact('role_data', 'admin_user_data', 'form_type'));
+        return view('admin.pages.users.index', compact('role_data', 'admin_user_data', 'form_type'));
+    }
+
+    /**
+     * trash data page
+     */
+    public function trashpage()
+    {
+        $role_data= Role::latest()->get();
+        $admin_user_data= AdminUser::latest()->where('trash', 1)->get();
+        $form_type= 'add';
+        return view('admin.pages.users.trash', compact('role_data', 'admin_user_data', 'form_type'));
     }
 
     /**
@@ -87,7 +98,7 @@ class AdminUserController extends Controller
         $role_data= Role::latest()->get();
         $admin_user_data= AdminUser::latest()->get();
         $form_type= 'edit';
-        return view('admin.pages.index', compact('role_data', 'admin_user_data', 'form_type', 'edit_id'));
+        return view('admin.pages.users.index', compact('role_data', 'admin_user_data', 'form_type', 'edit_id'));
     }
 
     /**
@@ -129,6 +140,73 @@ class AdminUserController extends Controller
     {
         $delete_id= AdminUser::findOrFail($id);
         $delete_id->delete();
-        return back()->with('success-mid', 'Delete a User Data');
+        return back()->with('success-mid', 'Permanently Delete a User Data');
     }
+
+
+    /**
+     * update status for a user
+     */
+    public function statusupdate($id)
+    {
+        $update_id=AdminUser::findOrFail($id);
+        if ($update_id->status) {
+            $update_id->update([
+                'status'    => false,
+            ]);
+        } else {
+            $update_id->update([
+                'status'    => true,
+            ]);
+        }
+        return back()->with('success-mid', 'successfully update the user status');
+
+
+        
+    }
+
+
+    /**
+     * move to trash admin user
+     */
+
+     public function trash($id)
+     {
+        $update_id= AdminUser::findOrFail($id);
+        if ($update_id->trash) {
+            $update_id->update([
+                'trash'     => false,
+            ]);
+        } else {
+            $update_id->update([
+                'trash'     => true
+            ]);
+        }
+        return back()->with('success-mid', 'User has moved to trash');
+        
+     }
+
+     /**
+      * restore user data
+      */
+      public function userrestore($id)
+      {
+        $update_id= AdminUser::findOrFail($id);
+        if ($update_id->trash) {
+            $update_id->update([
+                'trash'     => false,
+            ]);
+        } else {
+            $update_id->update([
+                'trash'     => true,
+            ]);
+        }
+
+        return back()->with('success-mid', 'Successfully restore the admin user data');
+        
+      }
+
+
+
+
 }

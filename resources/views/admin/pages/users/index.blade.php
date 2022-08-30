@@ -23,6 +23,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Admin User Table</h4>
+                        <a class="badge badge-pill" style="background-color:black" href="{{route('admin.user.trash.page')}}">Trash <i class="fa fa-arrow"></i></a>
                     </div>
                     @if (Session::has('success-mid'))
                     @include('validate.validate')
@@ -30,14 +31,14 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table mb-0">
+                            <table class="table mb-0 data_table">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Username</th>
-                                        <th>Cell</th>
+                                        <th>Name</th>                        
                                         <th>Role</th>
                                         <th>photo</th>
+                                        <th>created_at</th>
+                                        <th>status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -46,18 +47,31 @@
                                     @if ($admin_user->name != 'Provider')
                                     <tr>
                                         <td>{{$admin_user->name}}</td>
-                                        <td>{{$admin_user->username}}</td>
-                                        <td>{{$admin_user->cell}}</td>
-                                        <td>{{$admin_user->role}}</td>
-                                        <td>{{$admin_user->photo}}</td>
+                                        <td>{{$admin_user->role->name}}</td>
+                                        <td><img style="height: 42px; width:42px" src="{{url('avatar.png')}}" alt=""></td>
+                                        <td>{{$admin_user->created_at-> diffForHumans()}}</td>
+                                        @if ($admin_user->status)
+                                        <td>
+                                            <span class="badge badge-pill badge-success">Active</span> <a class="btn btn-sm btn-dark" style="color: red;" href="{{route('admin.user.status.update', $admin_user->id)}}"><i class="fa fa-times"></i></a>
+                                        </td>
+                                        @else
+                                        <td>
+                                            <span class="badge badge-pill badge-danger">Inactive</span> <a class="btn btn-sm btn-light" style="color:green" href="{{route('admin.user.status.update', $admin_user->id)}}"><i class="fa fa-check"></i></a>
+                                        </td>
+                                        @endif
+                                        
 
+                                        
                                         <td style="display: flex;">
                                             <a style="margin-right: 2px" class="btn btn-warning" href="{{route('admin-user.edit', $admin_user->id)}}"><i class="fa fa-edit"></i></a>
-                                            <form  action="{{route('admin-user.destroy', $admin_user->id)}}" class="delete-form" method="POST">
+                                            <a style="margin-right: 2px" class="btn btn-danger btn-alert" href="{{route('admin.user.trash', $admin_user->id)}}"><i class="fa fa-trash"></i></a>
+
+
+                                            {{-- <form  action="{{route('admin-user.destroy', $admin_user->id)}}" class="delete-form" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger " type="submit"><i class="fa fa-trash"></i></button>
-                                            </form>
+                                            </form> --}}
                                         </td>
                                     </tr>
                                     @endif
@@ -194,7 +208,7 @@
                                 <select name="role" id="" class="form-control">
                                     <option value="">--select--</option>
                                     @foreach ($role_data as $role)
-                                    <option  @if (json_decode($role->name)==$edit_id->role)
+                                    <option  @if ($edit_id->role_id== $role->id)
                                         selected
                                     @endif value="{{$role->id}}">{{$role->name}}</option>
                                     @endforeach

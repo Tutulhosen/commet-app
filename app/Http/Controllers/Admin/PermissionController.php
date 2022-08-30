@@ -18,7 +18,7 @@ class PermissionController extends Controller
     {
         $permission_date= Permission::latest()->get();
         $form_type='add';
-       return view('admin.pages.permission.index', compact('permission_date', 'form_type'));
+       return view('admin.pages.users.permission.index', compact('permission_date', 'form_type'));
     }
 
     /**
@@ -72,7 +72,7 @@ class PermissionController extends Controller
         $edit_id= Permission::findOrFail($id);
         $permission_date= Permission::latest()->get();
         $form_type='edit';
-        return view('admin.pages.permission.index', compact('permission_date', 'edit_id', 'form_type'));
+        return view('admin.pages.users.permission.index', compact('permission_date', 'edit_id', 'form_type'));
     }
 
     /**

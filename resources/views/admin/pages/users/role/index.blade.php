@@ -30,33 +30,45 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table mb-0">
+                            <table class="table mb-0 data_table">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
                                         <th>Slug</th>
+                                        <th>Permissions</th>
                                         <th>Created_at</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($permission_date as $permission)
+                                    
+                                    @forelse ($role_data as $role)
+                                   
                                     <tr>
-                                        <td>{{$permission->name}}</td>
-                                        <td>{{$permission->slug}}</td>
-                                        <td>{{$permission->created_at->diffForHumans()}}</td>
+                                        <td>{{$role->name}}</td>
+                                        <td>{{$role->slug}}</td>
+                                        <td>
+                                            <ul>
+                                                @forelse (json_decode($role->permission) as $item)
+                                                    <li>{{$item}}</li>
+                                                @empty
+                                                    
+                                                @endforelse
+                                            </ul>
+                                        </td>
+                                        <td>{{$role->created_at->diffForHumans()}}</td>
                                         <td style="display: flex;">
-                                            <a style="margin-right: 2px" class="btn btn-warning" href="{{route('permission.edit', $permission->id)}}"><i class="fa fa-edit"></i></a>
-                                            <form  action="{{route('permission.destroy', $permission->id)}}" class="delete-form" method="POST">
+                                            <a style="margin-right: 2px" class="btn btn-warning" href="{{route('role.edit', $role->id)}}"><i class="fa fa-edit"></i></a>
+                                            <form action="{{route('role.destroy', $role->id)}}" class="delete-form" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn btn-danger " type="submit"><i class="fa fa-trash"></i></button>
+                                                <button class="btn btn-danger btn_form" type="submit"><i class="fa fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>
                                     @empty
                                         <tr style="">
-                                            <td colspan="5" class="text-center text-danger">No permission data found</td>
+                                            <td colspan="6" class="text-center text-danger">No role data found</td>
                                         </tr>
                                     @endforelse
                                     
@@ -68,13 +80,12 @@
                 </div>
             </div>
 
-
-
+            
             @if ($form_type==='add')
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Add Permission</h4>
+                        <h4 class="card-title">Add Role</h4>
                     </div>
                     @if (Session::has('success'))
                     @include('validate.validate')
@@ -87,11 +98,27 @@
                     <div class="card-body">
 
 
-                        <form action="{{route('permission.store')}}" method="POST">
+                        <form action="{{route('role.store')}}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label>Permission Name</label>
+                                <label>Role Name</label>
                                 <input name="name" type="text" class="form-control">
+                            </div>
+
+                            <div>
+                                <label for="">Select  Permission</label>
+                                <ul style="list-style: none; padding-left:0px">
+                                    @forelse ($permission_data as $permission)
+                                    <li>
+                                        <label for=""><input type="checkbox" name="permission[]" value="{{$permission->name}}"> {{$permission->name}}</label>
+                                    </li>
+                                    @empty
+                                        <ul>
+                                            <li>No record found</li>
+                                        </ul>
+                                    @endforelse
+                                    
+                                </ul>
                             </div>
 
                             <div class="text-right">
@@ -111,21 +138,43 @@
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Edit Permission</h4>
+                        <h4 class="card-title">Edit Role</h4>
                     </div>
                     @if (Session::has('success'))
+                    @include('validate.validate')
+                    @endif
+
+                    @if ($errors->any())
                     @include('validate.validate')
                     @endif
 
                     <div class="card-body">
 
 
-                        <form action="{{route('permission.update', $permission->id)}}" method="POST">
+                        <form action="{{route('role.update', $edit_id->id)}}" method="POST">
                             @csrf
                             @method('PATCH')
                             <div class="form-group">
-                                <label>Permission Name</label>
-                                <input name="name" value="{{$permission->name}}" type="text" class="form-control">
+                                <label>Role Name</label>
+                                <input name="name" value="{{$edit_id->name}}" type="text" class="form-control">
+                            </div>
+
+                            <div>
+                                <label for="">Select  Permission</label>
+                                <ul style="list-style: none; padding-left:0px">
+                                    @forelse ($permission_data as $permission)
+                                    <li>
+                                        <label for=""><input type="checkbox" name="permission[]" @if (in_array($permission->name, json_decode($edit_id->permission)))
+                                            checked
+                                        @endif value="{{$permission->name}}"> {{$permission->name}}</label>
+                                    </li>
+                                    @empty
+                                        <ul>
+                                            <li>No record found</li>
+                                        </ul>
+                                    @endforelse
+                                    
+                                </ul>
                             </div>
 
                             <div class="text-right">
