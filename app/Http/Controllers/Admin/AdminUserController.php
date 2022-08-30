@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AdminUser;
 use App\Models\Role;
+use App\Notifications\AdminAccountInfoNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -63,7 +64,7 @@ class AdminUserController extends Controller
         //generate a random password
         $pass_string = str_shuffle('zxcvbnmasdfghjklqwertyuiop1234567890<>,.?/');
         $pass = substr($pass_string, 10, 10);
-        AdminUser::create([
+       $adminUser= AdminUser::create([
             'name'              =>$request->name,
             'email'             =>$request->email,
             'cell'              =>$request->cell,
@@ -72,6 +73,9 @@ class AdminUserController extends Controller
             'photo'             =>'avatar.png',
             'password'          =>Hash::make($pass),
         ]);
+
+        //mail notification
+        $adminUser->notify(new AdminAccountInfoNotification([$adminUser['name'], $pass]));
         return back()->with('success', 'successfully add a new admin user');
     }
 
