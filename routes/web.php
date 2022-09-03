@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\admin\RoleController;
+use App\Http\Controllers\FrontendController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,5 +65,13 @@ use Illuminate\Support\Facades\Route;
    Route::post('admin-user-password-change/{id}', [ProfileController::class, 'changePassword'])->name('admin.password.change');
 
  });
+
+
+
+ /**
+  * frontend route
+  */
+
+  Route::get('/', [FrontendController::class, 'index'])->name('home.index');
 
 
