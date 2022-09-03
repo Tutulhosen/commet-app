@@ -33,6 +33,7 @@
                             <table class="table mb-0 data_table">
                                 <thead>
                                     <tr>
+                                        <th>id</th>
                                         <th>Name</th>
                                         <th>Slug</th>
                                         <th>Permissions</th>
@@ -45,6 +46,7 @@
                                     @forelse ($role_data as $role)
                                    
                                     <tr>
+                                        <td>{{$loop->index+1}}</td>
                                         <td>{{$role->name}}</td>
                                         <td>{{$role->slug}}</td>
                                         <td>

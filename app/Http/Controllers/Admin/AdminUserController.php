@@ -180,6 +180,7 @@ class AdminUserController extends Controller
         if ($update_id->trash) {
             $update_id->update([
                 'trash'     => false,
+                
             ]);
         } else {
             $update_id->update([

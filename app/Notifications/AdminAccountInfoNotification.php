@@ -45,10 +45,12 @@ class AdminAccountInfoNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Hi', $this->name . ', Welcome to DocApp')
+
+                    ->line('Hi ' .  $this->name . ', Welcome to DocApp')
                     ->line('your password is : ' . $this->password)
                     // ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
+
     }
 
     /**

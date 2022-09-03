@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->text('permission');
+            $table->string('permission');
             $table->boolean('status')->default(true);
             $table->boolean('trash')->default(false);
             $table->timestamps();

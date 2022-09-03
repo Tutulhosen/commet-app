@@ -33,6 +33,7 @@
                             <table class="table mb-0 data_table">
                                 <thead>
                                     <tr>
+                                        <th>id</th>
                                         <th>Name</th>
                                         <th>Slug</th>
                                         <th>Created_at</th>
@@ -42,6 +43,7 @@
                                 <tbody>
                                     @forelse ($permission_date as $permission)
                                     <tr>
+                                        <td>{{$loop->index+1}}</td>
                                         <td>{{$permission->name}}</td>
                                         <td>{{$permission->slug}}</td>
                                         <td>{{$permission->created_at->diffForHumans()}}</td>
@@ -120,12 +122,12 @@
                     <div class="card-body">
 
 
-                        <form action="{{route('permission.update', $permission->id)}}" method="POST">
+                        <form action="{{route('permission.update', $edit_id->id)}}" method="POST">
                             @csrf
                             @method('PATCH')
                             <div class="form-group">
                                 <label>Permission Name</label>
-                                <input name="name" value="{{$permission->name}}" type="text" class="form-control">
+                                <input name="name" value="{{$edit_id->name}}" type="text" class="form-control">
                             </div>
 
                             <div class="text-right">

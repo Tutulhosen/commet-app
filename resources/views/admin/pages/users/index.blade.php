@@ -34,6 +34,7 @@
                             <table class="table mb-0 data_table">
                                 <thead>
                                     <tr>
+                                        <th>id</th>                        
                                         <th>Name</th>                        
                                         <th>Role</th>
                                         <th>photo</th>
@@ -46,13 +47,14 @@
                                     @forelse ($admin_user_data as $admin_user)
                                     @if ($admin_user->name != 'Provider')
                                     <tr>
+                                        <td>{{$loop->index+1}}</td>
                                         <td>{{$admin_user->name}}</td>
                                         <td>{{$admin_user->role->name}}</td>
                                         <td><img style="height: 42px; width:42px" src="{{url('avatar.png')}}" alt=""></td>
                                         <td>{{$admin_user->created_at-> diffForHumans()}}</td>
                                         @if ($admin_user->status)
                                         <td>
-                                            <span class="badge badge-pill badge-success">Active</span> <a class="btn btn-sm btn-dark" style="color: red;" href="{{route('admin.user.status.update', $admin_user->id)}}"><i class="fa fa-times"></i></a>
+                                            <span class="badge badge-pill badge-success">Active</span> <a class="btn btn-sm btn-dark" style="color: red;" href="{{route('admin.user.status.update', $admin_user->id)}}"><i class="fa fa-times btn_alert"></i></a>
                                         </td>
                                         @else
                                         <td>

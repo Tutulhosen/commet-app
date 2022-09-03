@@ -24,12 +24,18 @@ class DatabaseSeeder extends Seeder
 
 
 
-  
+        //role data
+       Role::create([
+        'name'                  =>'Admin',
+        'slug'                  =>Str::slug('admin'),
+        'permission'            =>json_encode([])
+       ]);
 
 
 
         //super admin date
         AdminUser::create([
+            'role_id'           =>1,
             'name'              =>'Provider',
             'email'             =>'provider@gmail.com',
             'cell'              =>'01937793487',
