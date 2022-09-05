@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\FrontendController;
 use App\Models\Slider;
 use Illuminate\Support\Facades\Route;
@@ -70,6 +71,10 @@ use Illuminate\Support\Facades\Route;
    //slider route
    Route::resource('slider', SliderController::class);
    Route::get('slider-status-update/{id}', [SliderController::class, 'sliderStatusUpdate'])->name('slider.status.update');
+
+   //testimonial route
+   Route::resource('testimonial', TestimonialController::class);
+   Route::get('testimonial-status-update/{id}', [TestimonialController::class, 'statusUpdate'])->name('testimonial.status.update');
 
  });
 

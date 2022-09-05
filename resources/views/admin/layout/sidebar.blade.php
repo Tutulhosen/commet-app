@@ -18,7 +18,7 @@
                 
                 @if (in_array('Testimonial', json_decode(Auth::guard('admin')->user()->role->permission)))
                 <li class=""> 
-                    <a href=""><i class="fe fe-home"></i> <span>Testimonial</span></a>
+                    <a href="{{route('testimonial.index')}}"><i class="fe fe-home"></i> <span>Testimonial</span></a>
                 </li>
                 @endif
                 @if (in_array('Our Clints', json_decode(Auth::guard('admin')->user()->role->permission)))
@@ -70,6 +70,12 @@
                 </li>
                 @endif
 
+                @if (in_array('Theme Option', json_decode(Auth::guard('admin')->user()->role->permission)))
+                <li> 
+                    <a href="settings.html"><i class="fe fe-vector"></i> <span>Theme Option</span></a>
+                </li>
+                @endif
+
                 @if (in_array('Settings', json_decode(Auth::guard('admin')->user()->role->permission)))
                 <li> 
                     <a href="settings.html"><i class="fe fe-vector"></i> <span>Settings</span></a>
@@ -77,7 +83,8 @@
                 @endif
 
             </ul>
-            
+
+           
             
 
 
