@@ -5,32 +5,31 @@
     <!-- Home Slider-->
     <div id="home-slider" class="flexslider">
       <ul class="slides">
+        @forelse ($slider_data as $slider)
         <li>
-          <img src="frontend/images/bg/1.jpg" alt="">
+          <img src="{{url('storage/slider/' . $slider->photo)}}" alt="">
           <div class="slide-wrap">
             <div class="slide-content">
               <div class="container">
-                <h1>Digital Power<span class="red-dot"></span></h1>
-                <h6>We are a small design studio from San Francisco.</h6>
-                <p><a href="#" class="btn btn-light-out">Read More</a><a href="#" class="btn btn-color btn-full">Services</a>
+                <h1>{{$slider->title}}<span class="red-dot"></span></h1>
+                <h6>{{$slider->subTitle}}</h6>
+                @if ($slider->btn)
+                <p>
+                  @foreach (json_decode($slider->btn) as $item)
+                  <a href="{{$item->btn_link}}" class="btn {{$item->btn_type}}">{{$item->btn_title}}</a>
+                  @endforeach                              
                 </p>
+                @endif
+                
               </div>
             </div>
           </div>
         </li>
-        <li>
-          <img src="frontend/images/bg/2.jpg" alt="">
-          <div class="slide-wrap">
-            <div class="slide-content">
-              <div class="container">
-                <h1>We Are Comet<span class="red-dot"></span></h1>
-                <h6>Experts in web design and development.</h6>
-                <p><a href="#" class="btn btn-color">Explore</a><a href="#" class="btn btn-light-out">Join us</a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </li>
+        @empty
+            
+        @endforelse
+        
+        
       </ul>
     </div>
     <!-- End Home Slider-->

@@ -6,7 +6,9 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\admin\RoleController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\FrontendController;
+use App\Models\Slider;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,6 +66,11 @@ use Illuminate\Support\Facades\Route;
    Route::post('admin-user-profile-photo/{id}', [ProfileController::class, 'uploadphoto'])->name('admin.user.profile.photo');
    Route::post('admin-user-password-change/{id}', [ProfileController::class, 'changePassword'])->name('admin.password.change');
 
+   
+   //slider route
+   Route::resource('slider', SliderController::class);
+   Route::get('slider-status-update/{id}', [SliderController::class, 'sliderStatusUpdate'])->name('slider.status.update');
+
  });
 
 
@@ -73,5 +80,6 @@ use Illuminate\Support\Facades\Route;
   */
 
   Route::get('/', [FrontendController::class, 'index'])->name('home.index');
+
 
 

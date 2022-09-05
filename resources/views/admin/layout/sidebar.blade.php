@@ -12,7 +12,7 @@
                 </li>
                 @if (in_array('Slider', json_decode(Auth::guard('admin')->user()->role->permission)))
                 <li class=""> 
-                    <a href=""><i class="fe fe-home"></i> <span>Slider</span></a>
+                    <a href="{{route('slider.index')}}"><i class="fe fe-home"></i> <span>Slider</span></a>
                 </li>
                 @endif
                 
