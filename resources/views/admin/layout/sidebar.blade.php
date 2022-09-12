@@ -38,7 +38,7 @@
                 @endif
                 @if (in_array('The Vision', json_decode(Auth::guard('admin')->user()->role->permission)))
                 <li class=""> 
-                    <a href=""><i class="fe fe-home"></i> <span>The Vision</span></a>
+                    <a href="{{route('vision.index')}}"><i class="fe fe-home"></i> <span>The Vision</span></a>
                 </li>
                 @endif
                 @if (in_array('Post', json_decode(Auth::guard('admin')->user()->role->permission)))

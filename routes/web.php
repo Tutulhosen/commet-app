@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\VisionController;
 use App\Http\Controllers\FrontendController;
 use App\Models\Slider;
 use Illuminate\Support\Facades\Route;
@@ -85,6 +86,10 @@ use Illuminate\Support\Facades\Route;
    //expertise route
    Route::resource('expertise', ExpertiseController::class);
    Route::get('expertise-status-update/{id}', [ExpertiseController::class, 'expertiseStatusUpdate'])->name('expertise.status.update');
+
+   //vision route
+   Route::resource('vision', VisionController::class);
+   Route::get('vision-status-update/{id}', [VisionController::class, 'visionStatusUpdate'])->name('vision.status.update');
 
  });
 
