@@ -126,7 +126,7 @@
                                 <label>photo</label>
 
                                 <img style="max-width: 100%" id="slider-photo-preview" src="" alt="">
-<br><br>
+                                <br><br>
                                 <input style="display: none" name="photo" type="file" class="form-control" id="photo-icon">
                                 <label for="photo-icon">
                                     <img style="width:60px; cursor:pointer" src="{{url('image-icon.png')}}" alt="">
@@ -193,7 +193,9 @@
                                 <label>photo</label>
 
                                 <img style="max-width: 100%" id="slider-photo-preview" src="{{url('storage/slider/' . $edit_id->photo)}}" alt="">
-<br><br>
+
+                                <br><br>
+                                
                                 <input style="display: none" name="photo" type="file" class="form-control" id="photo-icon">
                                 <label for="photo-icon">
                                     <img style="width:60px; cursor:pointer" src="{{url('image-icon.png')}}" alt="">
