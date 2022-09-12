@@ -31,6 +31,16 @@
                     <a href=""><i class="fe fe-home"></i> <span>Our Team</span></a>
                 </li>
                 @endif
+                @if (in_array('Expertise', json_decode(Auth::guard('admin')->user()->role->permission)))
+                <li class=""> 
+                    <a href="{{route('expertise.index')}}"><i class="fe fe-home"></i> <span>Expertise</span></a>
+                </li>
+                @endif
+                @if (in_array('The Vision', json_decode(Auth::guard('admin')->user()->role->permission)))
+                <li class=""> 
+                    <a href=""><i class="fe fe-home"></i> <span>The Vision</span></a>
+                </li>
+                @endif
                 @if (in_array('Post', json_decode(Auth::guard('admin')->user()->role->permission)))
                 <li class="submenu">
                     <a href="#"><i class="fe fe-document"></i> <span> Post</span> <span class="menu-arrow"></span></a>

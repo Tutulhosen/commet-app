@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\ExpertiseController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\admin\RoleController;
@@ -80,6 +81,10 @@ use Illuminate\Support\Facades\Route;
    //clients route
    Route::resource('client', ClientController::class);
    Route::get('client-status-update/{id}', [ClientController::class, 'clientStatusUpdate'])->name('client.status.update');
+
+   //expertise route
+   Route::resource('expertise', ExpertiseController::class);
+   Route::get('expertise-status-update/{id}', [ExpertiseController::class, 'expertiseStatusUpdate'])->name('expertise.status.update');
 
  });
 
