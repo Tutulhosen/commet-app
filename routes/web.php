@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\CategotyController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\ExpertiseController;
@@ -95,6 +96,11 @@ use Illuminate\Support\Facades\Route;
   //counter route
   Route::resource('counter', CounterController::class);
   Route::get('counter-status-update/{id}', [CounterController::class, 'counterStatusUpdate'])->name('counter.status.update');
+
+  //portfolio category route
+  Route::resource('category', CategotyController::class);
+  Route::get('category-status-update/{id}', [CategotyController::class, 'categoryStatusUpdate'])->name('category.status.update');
+
 
 
  });
