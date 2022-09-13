@@ -1,0 +1,8 @@
+.icon_page_row .preview-icon{
+    cursor: pointer;
+    font-size: 18px;
+    padding: 10px;
+}
+.icon_page_row .preview-icon i{
+    padding-right: 10px;
+}

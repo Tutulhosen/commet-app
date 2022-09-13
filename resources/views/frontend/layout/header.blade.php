@@ -99,7 +99,7 @@
           </li>
 
           <li class="">
-            <a href="#">About Us</a>           
+            <a href="">About Us</a>           
           </li>
 
           <li class="">
@@ -115,7 +115,7 @@
           </li>
 
           <li class="">
-            <a href="#">Contact Us</a>           
+            <a href="{{route('contact.index')}}">Contact Us</a>           
           </li>
 
           

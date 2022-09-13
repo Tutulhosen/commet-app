@@ -78,6 +78,23 @@
         });
 
 
+        //icon page show
+        $('button.show-icon').click(function(e){
+            e.preventDefault();
+            $('#select_icon_page').modal('show');
+        });
+
+        //select a icon by name
+        $('.icon_page_row .preview-icon code').click(function(){
+            let icon_name= $(this).html();
+            $('.icon_name_field').val(icon_name);
+            $('#select_icon_page').modal('hide');
+        });
+
+
+
+
+
 
     });
 

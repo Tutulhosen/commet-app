@@ -41,6 +41,11 @@
                     <a href="{{route('vision.index')}}"><i class="fe fe-home"></i> <span>The Vision</span></a>
                 </li>
                 @endif
+                @if (in_array('Counter', json_decode(Auth::guard('admin')->user()->role->permission)))
+                <li class=""> 
+                    <a href="{{route('counter.index')}}"><i class="fe fe-home"></i> <span>Counter</span></a>
+                </li>
+                @endif
                 @if (in_array('Post', json_decode(Auth::guard('admin')->user()->role->permission)))
                 <li class="submenu">
                     <a href="#"><i class="fe fe-document"></i> <span> Post</span> <span class="menu-arrow"></span></a>

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\ExpertiseController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -91,6 +92,11 @@ use Illuminate\Support\Facades\Route;
    Route::resource('vision', VisionController::class);
    Route::get('vision-status-update/{id}', [VisionController::class, 'visionStatusUpdate'])->name('vision.status.update');
 
+  //counter route
+  Route::resource('counter', CounterController::class);
+  Route::get('counter-status-update/{id}', [CounterController::class, 'counterStatusUpdate'])->name('counter.status.update');
+
+
  });
 
 
@@ -100,6 +106,7 @@ use Illuminate\Support\Facades\Route;
   */
 
   Route::get('/', [FrontendController::class, 'index'])->name('home.index');
+  Route::get('contact', [FrontendController::class, 'contactPageShow'])->name('contact.index');
 
 
 
