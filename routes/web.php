@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\ExpertiseController;
 use App\Http\Controllers\admin\PermissionController;
+use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\Admin\SliderController;
@@ -100,6 +101,9 @@ use Illuminate\Support\Facades\Route;
   //portfolio category route
   Route::resource('category', CategotyController::class);
   Route::get('category-status-update/{id}', [CategotyController::class, 'categoryStatusUpdate'])->name('category.status.update');
+
+  //portfolio route
+  Route::resource('/portfolio', PortfolioController::class);
 
 
 

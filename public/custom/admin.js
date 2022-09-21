@@ -92,6 +92,26 @@
         });
 
 
+        $('#gallery_image').change(function(e){
+
+            const files = e.target.files;
+            let gallery_ui= '';
+
+            for (let index = 0; index < files.length; index++) {
+                const obj_url= URL.createObjectURL(files[index])
+                gallery_ui += `<img src="${obj_url}">`;
+                
+            }
+
+            $(".gallery").html(gallery_ui);
+
+
+
+        });
+
+        CKEDITOR.replace('ckeditor_desc');
+
+
 
 
 

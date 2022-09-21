@@ -68,6 +68,7 @@
 		<script src="{{asset('admin/assets/plugins/raphael/raphael.min.js')}}"></script>    
 		<script src="{{asset('admin/assets/plugins/morris/morris.min.js')}}"></script>  
 		<script src="{{asset('admin/assets/js/chart.morris.js')}}"></script>
+		<script src="{{asset('admin/assets/ckeditor/ckeditor.js')}}"></script>
 
 
  

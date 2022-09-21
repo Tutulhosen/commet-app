@@ -61,9 +61,8 @@
                 <li class="submenu">
                     <a href="#"><i class="fe fe-document"></i> <span> Portfolio</span> <span class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="invoice-report.html">Portfolio</a></li>
+                        <li><a href="{{route('portfolio.index')}}">Portfolio</a></li>
                         <li><a href="{{route('category.index')}}">Category</a></li>
-                        <li><a href="invoice-report.html">Tag</a></li>
                     </ul>
                 </li>
                 @endif      

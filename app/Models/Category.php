@@ -9,4 +9,10 @@ class Category extends Model
 {
     use HasFactory;
     protected $guarded=[];
+
+    //connection with portfolio table
+    public function portfolio()
+    {
+        return $this->belongsToMany(Portfolio::class);
+    }
 }

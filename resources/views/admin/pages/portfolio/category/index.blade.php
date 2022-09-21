@@ -36,6 +36,7 @@
                                         <th>id</th>
                                         <th>Name</th>
                                         <th>Slug</th>
+                                        <th>Portfolio</th>
                                         <th>Created_at</th>
                                         <th>status</th>
                                         <th>Action</th>
@@ -49,6 +50,13 @@
                                         <td>{{$loop->index+1}}</td>
                                         <td>{{$category->name}}</td>
                                         <td>{{$category->slug}}</td>
+                                        <td>
+                                            @forelse ($category->portfolio as $item)
+                                                <li>{{$item->title}}</li>
+                                            @empty
+                                                None
+                                            @endforelse
+                                        </td>
                                         <td>{{$category->created_at->diffForHumans()}}</td>
 
                                         @if ($category->status)

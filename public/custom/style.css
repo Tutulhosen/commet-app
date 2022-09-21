@@ -6,3 +6,35 @@
 .icon_page_row .preview-icon i{
     padding-right: 10px;
 }
+
+.gallery{
+    display: flex;
+    flex-flow: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.gallery img{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.cat_list{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+.cat_list li{
+    margin: 0px;
+}
+
+.portfolio_step{
+    padding: 0px;
+    margin: 0px;
+}
+
+
+
+
