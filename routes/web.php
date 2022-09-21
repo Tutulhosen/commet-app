@@ -104,6 +104,7 @@ use Illuminate\Support\Facades\Route;
 
   //portfolio route
   Route::resource('/portfolio', PortfolioController::class);
+  Route::get('portfolio-status-update/{id}', [PortfolioController::class, 'portfolioStatusUpdate'])->name('portfolio.status.update');
 
 
 
@@ -117,6 +118,7 @@ use Illuminate\Support\Facades\Route;
 
   Route::get('/', [FrontendController::class, 'index'])->name('home.index');
   Route::get('contact', [FrontendController::class, 'contactPageShow'])->name('contact.index');
+  Route::get('portfolio-single-page/{slug}', [FrontendController::class, 'portfolioSinglePage'])->name('portfolio.single.page.index');
 
 
 

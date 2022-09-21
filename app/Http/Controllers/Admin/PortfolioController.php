@@ -7,6 +7,7 @@ use App\Models\Portfolio;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Permission;
 use Intervention\Image\Facades\Image;
 
 class PortfolioController extends Controller
@@ -132,7 +133,11 @@ class PortfolioController extends Controller
      */
     public function edit($id)
     {
-        //
+        $edit_id= Portfolio::findOrFail($id);
+        $portfolio_data= Portfolio::latest()->get();
+        $category_data= Category::latest()->get();
+        $form_type= 'edit';
+        return view('admin.pages.portfolio.portfolio.index', compact('portfolio_data', 'category_data', 'form_type', 'edit_id'));
     }
 
     /**
@@ -144,7 +149,89 @@ class PortfolioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+                $update_id=Portfolio::findOrFail($id);
+
+                //photo upload
+                if ($request->hasFile('photo')) {
+                    $file= $request->file('photo');
+                    $update_file_name= md5(time() . rand()) . '.' . $file->clientExtension();
+                    if ($update_id->featured_image) {
+                        unlink(storage_path('app/public/portfolio/featherd/' .  $update_id->featured_image));
+                    }
+                    $image= Image::make($file->getRealPath());
+                    $image->save(storage_path('app/public/portfolio/featherd/' . $update_file_name));
+                }
+        
+                //gallery photo upload (multiple photo upload)
+        
+                $gallery_file=[];
+                if ($request->hasFile('gallery')) {
+                    $gallery_all= $request->file('gallery');
+        
+                    
+        
+                   foreach ($gallery_all as $gallery) {
+                    $gallery_name= md5(time() . rand()) . '.' . $gallery->clientExtension();
+                    $gallery_image= Image::make($gallery->getRealPath());
+                    $gallery_image->save(storage_path('app/public/portfolio/gallery/' . $gallery_name));
+        
+                    array_push($gallery_file, $gallery_name);
+        
+        
+                   }
+                }
+        
+        
+                //step data manage
+        
+                $steps=[];
+                if (count($request->title)>0) {
+                    for ($i=0; $i < count($request->title); $i++) { 
+                        array_push($steps, [
+                            'title'     =>$request->title[$i],
+                            'desc'      =>$request->desc[$i],
+                        ]);
+                    }
+                
+                }
+
+                if ($request->hasFile('photo')||$request->hasFile('gallery')) {
+                    $portfolio_data_update= $update_id->update([
+                        'title'                 =>$request->name,
+                        'slug'                  =>Str::slug($request->name),
+                        'featured_image'        =>$update_file_name,
+                        'gallery'               =>json_encode($gallery_file),
+                        'client'                =>$request->clientName,
+                        'date'                  =>$request->project_date,
+                        'link'                  =>$request->link,
+                        'type'                  =>$request->projectType,
+                        'desc'                  =>$request->p_desc,
+                        'steps'                 =>json_encode($steps),
+                    ]);
+                    
+                    
+                }else {
+                    $portfolio_data_update= $update_id->update([
+                        'title'                 =>$request->name,
+                        'slug'                  =>Str::slug($request->name),
+                        'client'                =>$request->clientName,
+                        'date'                  =>$request->project_date,
+                        'link'                  =>$request->link,
+                        'type'                  =>$request->projectType,
+                        'desc'                  =>$request->p_desc,
+                        'steps'                 =>json_encode($steps),
+                    ]);
+                   
+                }
+
+               
+
+               
+
+                return redirect()->route('portfolio.index')->with('success', 'successfully Update portfolio Data');
+
+
+
     }
 
     /**
@@ -155,6 +242,34 @@ class PortfolioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete_id= Portfolio::findOrFail($id);
+        $delete_id->delete();
+        return back()->with('success-mid', 'Portfolio is Deleted');
     }
+
+
+    /**
+     * slider status update
+     */
+
+    public function portfolioStatusUpdate($id)
+    {
+       $update_id= Portfolio::findOrFail($id);
+       if ($update_id->status) {
+           $update_id->update([
+               'status'    =>false,
+           ]);
+       } else {
+          $update_id->update([
+           'status'        => true,
+          ]);
+       }
+       return back()->with('success-mid', 'successfully update the status');
+       
+    }
+
+
+
+
+
 }

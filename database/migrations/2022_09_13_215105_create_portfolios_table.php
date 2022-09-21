@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title')->unique();
             $table->string('slug')->unique();
-            $table->string('featured_image');
+            $table->string('featured_image')->nullable();
             $table->text('gallery')->nullable();
             $table->string('client')->nullable();
             $table->string('date')->nullable();

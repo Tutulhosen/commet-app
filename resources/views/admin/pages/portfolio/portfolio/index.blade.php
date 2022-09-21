@@ -78,19 +78,19 @@
 
                                         @if ($portfolio->status)
                                         <td>
-                                            <span class="badge badge-pill badge-success">Published</span> <a class="btn btn-sm btn-dark" style="color: red;" href="{{route('testimonial.status.update', $portfolio->id)}}"><i class="fa fa-times btn_alert"></i></a>
+                                            <span class="badge badge-pill badge-success">Published</span> <a class="btn btn-sm btn-dark" style="color: red;" href="{{route('portfolio.status.update', $portfolio->id)}}"><i class="fa fa-times btn_alert"></i></a>
                                         </td>
                                         @else
                                         <td>
-                                            <span class="badge badge-pill badge-danger">Unpublished</span> <a class="btn btn-sm btn-light" style="color:green" href="{{route('testimonial.status.update', $portfolio->id)}}"><i class="fa fa-check"></i></a>
+                                            <span class="badge badge-pill badge-danger">Unpublished</span> <a class="btn btn-sm btn-light" style="color:green" href="{{route('portfolio.status.update', $portfolio->id)}}"><i class="fa fa-check"></i></a>
                                         </td>
                                         @endif
                                         
 
                                         
                                         <td style="display: flex;">
-                                            <a style="margin-right: 2px" class="btn btn-warning" href="{{route('testimonial.edit', $portfolio->id)}}"><i class="fa fa-edit"></i></a>
-                                            <form  action="{{route('testimonial.destroy', $portfolio->id)}}" class="delete-form" method="POST">
+                                            <a style="margin-right: 2px" class="btn btn-warning" href="{{route('portfolio.edit', $portfolio->id)}}"><i class="fa fa-edit"></i></a>
+                                            <form  action="{{route('portfolio.destroy', $portfolio->id)}}" class="delete-form" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger " type="submit"><i class="fa fa-trash"></i></button>
@@ -306,7 +306,7 @@
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Edit Testimonial</h4>
+                        <h4 class="card-title">Edit Portfolio</h4>
                     </div>
                     @if (Session::has('success'))
                     @include('validate.validate')
@@ -319,23 +319,169 @@
                     <div class="card-body">
 
 
-                        <form action="{{route('testimonial.update' , $edit_id->id)}}" method="POST" >
+                        <form action="{{route('portfolio.update' , $edit_id->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="form-group">
-                                <label>  Clint Name</label>
-                                <input name="name" type="text" class="form-control" value="{{$edit_id->name}}">
+                                <label> Title </label>
+                                <input name="name" type="text" class="form-control" value="{{$edit_id->title}}">
                             </div>
 
                             <div class="form-group">
-                                <label> Company</label>
-                                <input name="company" type="text" class="form-control" value="{{$edit_id->company}}">
+                                <label>Featured Image</label>
+                               
+                                <label for="photo-icon">
+                                    <img style="max-width: 100%" id="slider-photo-preview" src="{{url('storage/portfolio/featherd/' . $edit_id->featured_image)}}" alt="">
+                                </label>
+                                <img style="max-width: 100%" id="slider-photo-preview" src="" alt="">
+                                <br><br>
+                                <input style="display: none" name="photo" type="file" class="form-control" id="photo-icon">
+                                <label for="photo-icon">
+                                    <img style="width:60px; cursor:pointer" src="{{url('image-icon.png')}}" alt="">
+                                </label>
                             </div>
 
                             <div class="form-group">
-                                <label> Testimonial</label>
-                                <input name="testimonial" type="text" class="form-control" value="{{$edit_id->testimonial}}">
+                                <label>Gallery Image</label>
+
+                                <div class="gallery">
+                                    @foreach (json_decode($edit_id->gallery) as $item)
+                                        <img src="{{url('storage/portfolio/gallery/' . $item)}}" alt="">
+                                    @endforeach
+                                </div>
+
+                                <div class="gallery">
+
+                                </div>
+                                <br><br>
+                                <input style="display: none" name="gallery[]" multiple type="file" class="form-control" id="gallery_image">
+                                <label for="gallery_image">
+                                    <img style="width:60px; cursor:pointer"  src="{{url('image-icon.png')}}" alt="">
+                                </label>
                             </div>
+
+                            <div class="form-group">
+                                <label>Project Description </label>
+                                <textarea name="p_desc" id="ckeditor_desc" class="form-control">{{$edit_id->desc}}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label> Project Steps </label>
+                                <div id="accordion">
+
+                                    <div class="card portfolio_step">
+                                      <div class="card-header" id="headingOne">
+                                        <h5 class="mb-0">
+                                          <h5 style="cursor: pointer" class="btn btn-sm btn-dark" data-toggle="collapse" data-target="#collapseOne">STEP 1</h5>
+                                        </h5>
+                                      </div>
+                                  
+                                      <div id="collapseOne" class="collapse" data-parent="#accordion">
+                                        <div class="card-body">
+
+                                          <div class="m-3">
+                                            <label for="">Title</label>
+                                            <input name="title[]" type="text" class="form-control">
+                                          </div>
+
+                                          <div class="m-3">
+                                            <label for="">Description</label>
+                                            <textarea name="desc[]"></textarea>
+                                          </div>
+
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="card portfolio_step">
+                                        <div class="card-header " id="headingOne">
+                                          <h5 class="mb-0">
+                                            <h5 style="cursor: pointer" class="btn btn-sm btn-dark" data-toggle="collapse" data-target="#collapseTwo">STEP 2</h5>
+                                          </h5>
+                                        </div>
+                                    
+                                        <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                                          <div class="card-body">
+  
+                                            <div class="m-3">
+                                              <label for="">Title</label>
+                                              <input name="title[]" type="text" class="form-control">
+                                            </div>
+  
+                                            <div class="m-3">
+                                              <label for="">Description</label>
+                                              <textarea name="desc[]"></textarea>
+                                            </div>
+  
+                                          </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card portfolio_step">
+                                        <div class="card-header" id="headingOne">
+                                          <h5 class="mb-0">
+                                            <h5 style="cursor: pointer" class="btn btn-sm btn-dark" data-toggle="collapse" data-target="#collapseThree">STEP 3</h5>
+                                          </h5>
+                                        </div>
+                                    
+                                        <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                          <div class="card-body">
+  
+                                            <div class="m-3">
+                                              <label for="">Title</label>
+                                              <input name="title[]" type="text" class="form-control">
+                                            </div>
+  
+                                            <div class="m-3">
+                                              <label for="">Description</label>
+                                              <textarea name="desc[]"></textarea>
+                                            </div>
+  
+                                          </div>
+                                        </div>
+                                    </div>
+
+                                    
+                                  </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label> Category </label>
+                                <ul class="cat_list">
+                                    @foreach ($category_data as $category)
+                                        <li>
+                                            <label>
+                                                <input name="category[]" value="{{$category->id}}"  type="checkbox"> {{$category->name}}
+                                            </label>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            <div class="form-group">
+                                <label> Client name </label>
+                                <input name="clientName" type="text" class="form-control" value="{{$edit_id->client}}">
+                            </div>
+
+                            <div class="form-group">
+                                <label> Project Type </label>
+                                <input name="projectType" type="text" class="form-control" value="{{$edit_id->type}}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Project Date </label>
+                                <input name="project_date" type="date" class="form-control" value="{{$edit_id->date}}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Project Link </label>
+                                <input name="link" type="text" class="form-control" value="{{$edit_id->link}}">
+                            </div>
+
+
+
+
+
                           
 
                             <div class="text-right">

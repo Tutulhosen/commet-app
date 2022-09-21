@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Portfolio;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 
@@ -24,6 +25,17 @@ class FrontendController extends Controller
      {
        return view('frontend.pages.contact.index');
      }
+
+
+     /**
+      * show single portfolio page
+      */
+
+      public function portfolioSinglePage($slug)
+      {
+        $single_data= Portfolio::where('slug', $slug)->first();
+        return view('frontend.pages.single_page.index', compact('single_data'));
+      }
 
 
 
