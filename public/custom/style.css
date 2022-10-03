@@ -36,5 +36,10 @@
 }
 
 
-
+.post_gallery,
+.post_video,
+.post_audio,
+.post_quote{
+    display: none;
+}
 

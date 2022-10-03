@@ -109,7 +109,68 @@
 
         });
 
+        //ck editor connection
+
         CKEDITOR.replace('ckeditor_desc');
+
+
+        //select2 connection
+
+        $('.select2option').select2();
+
+        //post type action process
+
+        $('#project_type_option').change(function(){
+
+            const project_type= $(this).val();
+
+            console.log(project_type);
+
+            if (project_type=='Standert') {
+                $('.post_photo').show();
+                $('.post_gallery').hide();
+                $('.post_video').hide();
+                $('.post_audio').hide();
+                $('.post_quote').hide();
+            }else if (project_type=='Gallery') {
+                $('.post_photo').hide();
+                $('.post_gallery').show();
+                $('.post_video').hide();
+                $('.post_audio').hide();
+                $('.post_quote').hide();
+            }else if (project_type=='Video') {
+                $('.post_photo').hide();
+                $('.post_gallery').hide();
+                $('.post_video').show();
+                $('.post_audio').hide();
+                $('.post_quote').hide();
+            }else if (project_type=='Audio') {
+                $('.post_photo').hide();
+                $('.post_gallery').hide();
+                $('.post_video').hide();
+                $('.post_audio').show();
+                $('.post_quote').hide();
+            }else if (project_type=='Quote') {
+                $('.post_photo').hide();
+                $('.post_gallery').hide();
+                $('.post_video').hide();
+                $('.post_audio').hide();
+                $('.post_quote').show();
+            }
+
+            
+
+
+
+
+        });
+
+
+
+
+
+
+
 
 
 

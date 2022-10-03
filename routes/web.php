@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\ExpertiseController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\Admin\PortfolioController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\Admin\SliderController;
@@ -115,6 +116,11 @@ use Illuminate\Support\Facades\Route;
   //post category route
   Route::resource('/categorypost', CategorypostController::class);
   Route::get('/categorypost-status-update/{id}', [CategorypostController::class, 'categorypostStatusUpdate'])->name('categorypost.status.update');
+
+  //post route
+  Route::resource('/post', PostController::class);
+  Route::get('/post-status-update/{id}', [PostController::class, 'postStatusUpdate'])->name('post.status.update');
+
 
 
  });
